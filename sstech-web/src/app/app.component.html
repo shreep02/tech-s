@@ -1,0 +1,64 @@
+<header>
+  <nav class="navbar">
+    <a href="#" class="logo-link">
+      <div class="logo">
+        <img src="shortlogo.jpg" alt="SSTech" class="logo-img" />
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-text">
+      <h1>High-Quality Tech Solutions</h1>
+      <p>Expertise in testing and development tailored for your business.</p>
+      <a href="#services" class="cta">Our Services</a>
+    </div>
+  </section>
+
+  <section id="services" class="services-section">
+    <h2>Our Services</h2>
+    <div class="pricing-container">
+      <div class="card" *ngFor="let service of services; let i = index">
+        <h3>{{ service.title }}</h3>
+        <p class="description">{{ service.desc }}</p>
+        <hr />
+        <div class="price-tag">
+          <span class="amount">{{ service.price }}</span>
+          <span class="unit">{{ service.unit }}</span>
+        </div>
+        <button class="cta-btn" (click)="sendEnquiryEmail()">
+          Enquire Now
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about-section">
+    <h2>About Us</h2>
+    <p>
+      We are a team of passionate developers and testers dedicated to delivering
+      top-notch software solutions.
+    </p>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <h2>Contact Us</h2>
+    <p>Get in touch with us to discuss your next project.</p>
+    <div class="social-links">
+      <a href="mailto:{{ email }}">Email</a>
+      <a href="{{ linkedIn }}">LinkedIn</a>
+      <a href="{{ gitHub }}">Github</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 {{ companyName }}. All Rights Reserved.</p>
+</footer>
