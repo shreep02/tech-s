@@ -1,29 +1,4 @@
-# Tech-S Websites
-
-This repository contains two independent Angular websites:
-
-- `portfolio`: Personal developer portfolio.
-- `sstech-web`: SSTech company website.
-
-## Development
-
-Run the portfolio:
-
-```bash
-cd portfolio
-npm install
-npm start
-```
-
-Run SSTech in a second terminal:
-
-```bash
-cd sstech-web
-npm install
-npm start
-```
-
-Each project has its own dependencies, lockfile, Angular version, and build configuration.# Developer Portfolio
+# Developer Portfolio
 
 A lightweight Angular portfolio for showcasing software testing, automation, and web development experience.
 
