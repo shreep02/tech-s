@@ -10,52 +10,95 @@ import { Component } from '@angular/core';
 export class AppComponent {
   readonly cvUrl =
     'https://1drv.ms/b/c/d8855e6f09d47f85/IQAP0s_R9mCPRZi5Vgyqazj7AaJAKG9SpURdxtINJVhGSfQ?e=l7kOue';
-  readonly formspreeEndpoint = 'https://formspree.io/f/xdenyawn';
 
   cvRequestOpen = false;
+  contactFormOpen = false;
+  cvSubmitting = false;
+  cvStatus: 'idle' | 'success' | 'error' = 'idle';
+  cvStatusMessage = '';
   cvForm = {
     name: '',
     email: '',
     company: '',
     message: '',
   };
+  contactForm = {
+    name: '',
+    email: '',
+    company: '',
+    message: '',
+  };
+
+  openContact(): void {
+    this.contactFormOpen = true;
+  }
+
+  closeContact(): void {
+    this.contactFormOpen = false;
+    this.contactForm = {
+      name: '',
+      email: '',
+      company: '',
+      message: '',
+    };
+  }
 
   openCvRequest(): void {
     this.cvRequestOpen = true;
+    this.cvStatus = 'idle';
+    this.cvStatusMessage = '';
   }
 
   closeCvRequest(): void {
     this.cvRequestOpen = false;
+    this.cvSubmitting = false;
+    this.cvStatus = 'idle';
+    this.cvStatusMessage = '';
+    this.cvForm = {
+      name: '',
+      email: '',
+      company: '',
+      message: '',
+    };
   }
 
-  async submitCvRequest(): Promise<void> {
+  async submitContactForm(event: Event): Promise<void> {
+    event.preventDefault();
+
+    const entry = {
+      ...this.contactForm,
+      requestedAt: new Date().toISOString(),
+      formType: 'contact_request',
+    };
+
+    this.saveCvRequestLocally(entry);
+
+    this.contactForm = {
+      name: '',
+      email: '',
+      company: '',
+      message: '',
+    };
+    this.contactFormOpen = false;
+  }
+
+  async submitCvRequest(event: Event): Promise<void> {
+    event.preventDefault();
+    if (this.cvSubmitting) {
+      return;
+    }
+
+    this.cvSubmitting = true;
+    this.cvStatus = 'idle';
+    this.cvStatusMessage = '';
+
     const entry = {
       ...this.cvForm,
       requestedAt: new Date().toISOString(),
       formType: 'cv_request',
     };
-
-    const isFormspreeConfigured =
-      !this.formspreeEndpoint.includes('your-form-id');
-
-    try {
-      if (isFormspreeConfigured) {
-        await fetch(this.formspreeEndpoint, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(entry),
-        });
-      }
-    } catch {
-      this.saveCvRequestLocally(entry);
-    }
-
-    if (!isFormspreeConfigured) {
-      this.saveCvRequestLocally(entry);
-    }
+    this.saveCvRequestLocally(entry);
+    window.open(this.cvUrl, '_blank', 'noopener,noreferrer');
 
     this.cvForm = {
       name: '',
@@ -63,9 +106,9 @@ export class AppComponent {
       company: '',
       message: '',
     };
-    this.cvRequestOpen = false;
-
-    window.open(this.cvUrl, '_blank', 'noopener,noreferrer');
+    this.cvStatus = 'success';
+    this.cvStatusMessage = 'Your CV is opening in a new tab.';
+    this.cvSubmitting = false;
   }
 
   private saveCvRequestLocally(entry: Record<string, string>): void {
