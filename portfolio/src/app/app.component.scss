@@ -312,6 +312,87 @@ h2 em {
   opacity: 0.75;
 }
 
+.project-card-wide {
+  grid-column: 1 / -1;
+  min-height: 0;
+}
+
+.project-card-wide .project-content {
+  max-width: none;
+}
+
+.case-study > p:not(.project-type) {
+  max-width: 720px;
+}
+
+.case-study strong {
+  font-weight: 600;
+}
+
+.case-meta {
+  font: 0.75rem var(--mono);
+}
+
+.case-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-highlights li {
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.case-highlights h4 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.case-highlights p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.case-table-wrap {
+  margin-top: 28px;
+  overflow-x: auto;
+}
+
+.case-table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.case-table th,
+.case-table td {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.case-table thead th {
+  font: 0.68rem var(--mono);
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.case-table tbody th {
+  width: 22%;
+  font-weight: 600;
+}
+
+.case-table td {
+  color: var(--muted);
+}
+
 .tag-list {
   display: flex;
   flex-wrap: wrap;
@@ -499,6 +580,10 @@ h2 em {
 
   .project-card + .project-card {
     margin-top: 16px;
+  }
+
+  .case-highlights {
+    grid-template-columns: 1fr;
   }
 
   .contact {
